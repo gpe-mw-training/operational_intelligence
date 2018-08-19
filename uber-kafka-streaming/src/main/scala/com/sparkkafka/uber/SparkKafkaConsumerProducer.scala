@@ -1,6 +1,5 @@
 package com.sparkkafka.uber
 
-// http://maprdocs.mapr.com/home/Spark/Spark_IntegrateMapRStreams.html
 
 import org.apache.spark._
 
@@ -25,7 +24,7 @@ import org.apache.spark.ml.clustering.KMeansModel
 import org.apache.spark.rdd.RDD
 
 /**
- * Consumes messages from a topic in MapR Streams using the Kafka interface,
+ * Consumes messages from a topic in Kafka Streams using the Kafka interface,
  * enriches the message with  the k-means model cluster id and publishs the result in json format
  * to another topic
  * Usage: SparkKafkaConsumerProducer  <model> <topicssubscribe> <topicspublish>
@@ -38,7 +37,7 @@ import org.apache.spark.rdd.RDD
  * mapr-sparkml-streaming-uber-1.0.jar /user/user01/data/savemodel  /user/user01/stream:ubers /user/user01/stream:uberp
  *
  *    for more information
- *    http://maprdocs.mapr.com/home/Spark/Spark_IntegrateMapRStreams_Consume.html
+ 
  */
 
 object SparkKafkaConsumerProducer extends Serializable {
@@ -67,7 +66,7 @@ object SparkKafkaConsumerProducer extends Serializable {
     val Array(modelpath, topics, topicp) = args
     System.out.println("Use model " + modelpath + " Subscribe to : " + topics + " Publish to: " + topicp)
 
-    val brokers = "maprdemo:9092" // not needed for MapR Streams, needed for Kafka
+    val brokers = "localost:9092" // not needed for Nandan's Kafka Streams, needed for Kafka
     val groupId = "sparkApplication"
     val batchInterval = "2"
     val pollTimeout = "10000"
