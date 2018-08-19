@@ -1,4 +1,3 @@
-/* Copyright (c) 2009 & onwards. MapR Tech, Inc., All rights reserved */
 package com.streamskafka.uber;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
