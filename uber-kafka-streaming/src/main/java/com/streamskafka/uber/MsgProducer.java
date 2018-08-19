@@ -16,7 +16,7 @@ public class MsgProducer {
 
     public static void main(String[] args) throws Exception {
 
-        // Set the default stream and topic to publish to.
+        // Set the default stream and topic to publish to be tested with Nandan's Kafka Connect
         String topic = "/user/user01/stream:ubers";
         String fileName = "/user/user01/data/uber.csv";
 
