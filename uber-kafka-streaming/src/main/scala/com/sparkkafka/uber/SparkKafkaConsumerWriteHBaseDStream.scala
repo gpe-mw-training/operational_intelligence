@@ -56,7 +56,7 @@ object SparkKafkaConsumerWriteHBaseDStream {
     val offsetReset = "earliest"
     val pollTimeout = "5000"
     var Array(topicc, tableName) = args
-    val brokers = "maprdemo:9092" // not needed for MapR Streams
+    val brokers = "localhost:9092" // not needed for MapR Streams
 
     val sparkConf = new SparkConf()
       .setAppName(SparkKafkaConsumer.getClass.getName)
