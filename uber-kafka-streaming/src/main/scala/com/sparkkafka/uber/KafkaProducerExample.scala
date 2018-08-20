@@ -56,7 +56,7 @@ object KafkaProducerExample extends App {
   import org.apache.spark.streaming.kafka.producer._
 
   val Array(topics) = args
-  val kafkaBrokers = "maprdemo:9092"
+  val kafkaBrokers = "localhost:9092"
   val numMessages = 10
 
   val batchTime = Seconds(2)
