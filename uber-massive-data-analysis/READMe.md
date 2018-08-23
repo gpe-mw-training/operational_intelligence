@@ -1,4 +1,5 @@
 ## **Analysis of Uber's Ridership Data for NYC.**
+## ** This Project completely uses the Jupyter Notebook which includes Python Packages, which is deployed in our Oshinko Cluster, which could handle the data of 1.5GB.**
 
 Early in 2017, the NYC Taxi and Limousine Commission [(TLC)](http://www.nyc.gov/html/tlc/html/about/trip_record_data.shtml) released a dataset about Uber's ridership between September 2014 and August 2015. The data contains features distinct from those in the set previously released and throughly explored by FiveThirtyEight and the [Kaggle community](https://www.kaggle.com/fivethirtyeight/uber-pickups-in-new-york-city). Check the [Jupyter Notebook](https://github.com/geoninja/Uber-Data-Analysis/blob/master/NYC_Uber_Rides.ipynb) in this repository to see the contents of the data. 
 
