@@ -18,7 +18,7 @@ object Main {
          val spark: SparkSession = SparkSession.builder().appName("uber").master("local[*]").getOrCreate()
 
     import spark.implicits._
-
+ //Define your structured Schema
     val schema = StructType(Array(
       StructField("dt", TimestampType, true),
       StructField("lat", DoubleType, true),
@@ -26,7 +26,7 @@ object Main {
       StructField("base", StringType, true)
     ))
     
-    // Spark 2.1
+    // Using Latest Version of Spark 2.1 
     val df: Dataset[Uber] = spark.read.option("inferSchema", "false").schema(schema).csv("src/main/resources/data/uber.csv").as[Uber]
     df.cache
     df.show
@@ -37,7 +37,7 @@ object Main {
     val df2 = assembler.transform(df)
     val Array(trainingData, testData) = df2.randomSplit(Array(0.7, 0.3), 5043)
 
-    // increase the iterations if running on a cluster (this runs on a 1 node sandbox)
+    // increase the iterations if running on a cluster, Optimum is 5 iterations.
     val kmeans = new KMeans().setK(20).setFeaturesCol("features").setMaxIter(5)
     val model = kmeans.fit(trainingData)
     println("Final Centers: ")
@@ -66,6 +66,8 @@ object Main {
      //res.write.format("json").save("com/redhat/gpte/data/uber.json")
   }
 }
+
+//Just like Domain Object in Java
 
 case class Uber(dt: String, lat: Double, lon: Double, base: String) extends Serializable
 
