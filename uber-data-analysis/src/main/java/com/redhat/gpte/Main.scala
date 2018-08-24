@@ -28,7 +28,6 @@ object Main {
     
     // Spark 2.1
     val df: Dataset[Uber] = spark.read.option("inferSchema", "false").schema(schema).csv("src/main/resources/data/uber.csv").as[Uber]
-
     df.cache
     df.show
     df.schema
@@ -60,17 +59,11 @@ object Main {
 
     spark.sql("SELECT hour(uber.dt) as hr,count(prediction) as ct FROM uber group By hour(uber.dt)").show
 
-    /*
-     * uncomment below for various functionality:
-    */
-    // to save the model 
-    model.write.overwrite().save("com/redhat/gpte/data/savemodel")
-    // model can be  re-loaded like this
-    // val sameModel = KMeansModel.load("/user/user01/data/savemodel")
-    //  
-    // to save the categories dataframe as json data
+
     val res = spark.sql("select dt, lat, lon, base, prediction as cid FROM uber order by dt")   
-    res.write.format("json").save("com/redhat/gpte/data/uber.json")
+      res.show()
+      //We can also write it to a JSON format, But I have commented here.
+     //res.write.format("json").save("com/redhat/gpte/data/uber.json")
   }
 }
 
