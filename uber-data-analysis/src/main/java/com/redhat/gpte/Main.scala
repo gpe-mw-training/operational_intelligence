@@ -13,8 +13,10 @@ import org.apache.spark.ml.clustering.KMeans
 
 object Main {
   
+      //Just Like main method in Java
       def main(args: Array[String]) {
         
+        // Initialize the spark Session
          val spark: SparkSession = SparkSession.builder().appName("uber").master("local[*]").getOrCreate()
 
     import spark.implicits._
@@ -26,12 +28,13 @@ object Main {
       StructField("base", StringType, true)
     ))
     
-    // Using Latest Version of Spark 2.1 
+    // Using Latest Version of Spark 2.3.1
     val df: Dataset[Uber] = spark.read.option("inferSchema", "false").schema(schema).csv("src/main/resources/data/uber.csv").as[Uber]
-    df.cache
-    df.show
-    df.schema
-
+    
+        df.cache  //Cache the DataSet [uber] in memory (Action 1)
+    df.show //Print them (Action 2) Please refer Actions and Transformations in Apache Spark
+    df.schema //Arrange them in a structured schema (Action 3)
+   // Constructing an Array using Latitude and Longitude
     val featureCols = Array("lat", "lon")
     val assembler = new VectorAssembler().setInputCols(featureCols).setOutputCol("features")
     val df2 = assembler.transform(df)
@@ -41,13 +44,17 @@ object Main {
     val kmeans = new KMeans().setK(20).setFeaturesCol("features").setMaxIter(5)
     val model = kmeans.fit(trainingData)
     println("Final Centers: ")
-    model.clusterCenters.foreach(println)
+    //Model the ClusterCenters
+    model.clusterCenters.foreach(println) 
 
-    val categories = model.transform(testData)
+    val categories = model.transform(testData) 
 
     categories.show
+    //Register with and Store in a Temp Table named "uber", which helps in firing queries in Memory
     categories.createOrReplaceTempView("uber")
 
+        
+    // SparkSQL Queries -- For Multiple scenarios (Which is explained in Zeppelin Notebook and Visualized at every queries
     categories.select(month($"dt").alias("month"), dayofmonth($"dt").alias("day"), hour($"dt").alias("hour"), $"prediction").groupBy("month", "day", "hour", "prediction").agg(count("prediction").alias("count")).orderBy("day", "hour", "prediction").show
 
     categories.select(hour($"dt").alias("hour"), $"prediction").groupBy("hour", "prediction").agg(count("prediction")
@@ -62,7 +69,7 @@ object Main {
 
     val res = spark.sql("select dt, lat, lon, base, prediction as cid FROM uber order by dt")   
       res.show()
-      //We can also write it to a JSON format, But I have commented here.
+      //We can also write it to a JSON format, But I have commented here, Since It may use intensive resources.
      //res.write.format("json").save("com/redhat/gpte/data/uber.json")
   }
 }
