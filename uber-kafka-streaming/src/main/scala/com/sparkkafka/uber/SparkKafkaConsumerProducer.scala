@@ -102,7 +102,7 @@ object SparkKafkaConsumerProducer extends Serializable {
     // create a dataframe with cluster centers to join with stream
     var ac = new Array[Center](20)
     var index: Int = 0
-    model.clusterCenters.foreach(x => {
+    model.clusterCenters.foreach(x => { 
       ac(index) = Center(index, x(0), x(1));
       index += 1;
     })
