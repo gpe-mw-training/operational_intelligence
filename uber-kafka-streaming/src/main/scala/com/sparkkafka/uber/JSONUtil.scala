@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package com.sparkkafka.uber
+/*package com.sparkkafka.uber
 
 
 import com.fasterxml.jackson.databind.{DeserializationFeature, ObjectMapper}
@@ -29,4 +29,5 @@ object JSONUtil {
   def fromJson[T](json: String)(implicit m : Manifest[T]): T = {
     mapper.readValue[T](json)
   }
-}
+}*/
+
