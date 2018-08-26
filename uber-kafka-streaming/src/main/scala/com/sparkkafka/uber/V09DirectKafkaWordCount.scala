@@ -49,7 +49,7 @@ object V09DirectKafkaWordCount {
     val offsetReset = "earliest"
     val pollTimeout = "5000"
     val Array(topics) = args
-    val brokers = "maprdemo:9092"
+    val brokers = "172.30.218.203:9092"
 
     // Create context with 2 second batch interval
     val sparkConf = new SparkConf().setAppName("v09DirectKafkaWordCount")
