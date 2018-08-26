@@ -24,6 +24,7 @@ case class UberC(dt: String, lat: Double, lon: Double, cid: Integer, clat: Doubl
       System.err.println("Usage: SparkKafkaConsumer <topic consume> ")
       System.exit(1)
     }
+    
 
     val schema = StructType(Array(
       StructField("dt", TimestampType, true),
