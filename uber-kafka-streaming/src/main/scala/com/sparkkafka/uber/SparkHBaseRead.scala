@@ -7,6 +7,7 @@
  * http://hbase.apache.org/apidocs/org/apache/hadoop/hbase/mapreduce/TableInputFormat.html
  */
 
+/*
 package com.sparkkafka.uber
 
 import org.apache.hadoop.hbase.HBaseConfiguration
@@ -83,4 +84,4 @@ object SparkHBaseRead {
     uberDF.show()
   }
 
-}
+}*/
