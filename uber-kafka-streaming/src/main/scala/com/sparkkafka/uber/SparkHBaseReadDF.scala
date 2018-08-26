@@ -7,7 +7,7 @@
  * http://hbase.apache.org/apidocs/org/apache/hadoop/hbase/mapreduce/TableInputFormat.html
  */
 
-package com.sparkkafka.uber
+/*package com.sparkkafka.uber
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.types._
 
@@ -19,7 +19,7 @@ import org.apache.spark.sql.datasources.hbase.HBaseTableCatalog
 object SparkHBaseReadDF {
 
   val cat = s"""{
-                |"table":{"namespace":"default", "name":"/user/user01/db/uber"},
+                |"table":{"namespace":"default", "name":"/db/uber"},
                 |"rowkey":"key",
                 |"columns":{
                 |"key":{"cf":"rowkey", "col":"key", "type":"string"},
@@ -54,4 +54,4 @@ object SparkHBaseReadDF {
 
   }
 
-}
+}*/
