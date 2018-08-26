@@ -66,7 +66,7 @@ object SparkKafkaConsumerProducer extends Serializable {
     val Array(modelpath, topics, topicp) = args
     System.out.println("Use model " + modelpath + " Subscribe to : " + topics + " Publish to: " + topicp)
 
-    val brokers = "localost:9092" // not needed for Nandan's Kafka Streams, needed for Kafka
+    val brokers = "172.30.218.203:9092" // not needed for Nandan's Kafka Streams, needed for Kafka
     val groupId = "sparkApplication"
     val batchInterval = "2"
     val pollTimeout = "10000"
