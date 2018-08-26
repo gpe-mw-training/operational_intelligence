@@ -10,6 +10,7 @@ import org.apache.spark.sql.types.TimestampType
 import org.apache.spark.ml.feature.VectorAssembler
 import org.apache.spark.ml.clustering.KMeans
 
+//This code is the Lab Exercise two code, Please run all the Zeppelin Cells before proceeding to Lab3. Hence it is active here.
 object ClusterUber {
   
   case class Uber(dt: String, lat: Double, lon: Double, base: String) extends Serializable
@@ -27,8 +28,8 @@ object ClusterUber {
       StructField("base", StringType, true)
     ))
 
-    // Spark 2.1
-    val df: Dataset[Uber] = spark.read.option("inferSchema", "false").schema(schema).csv("/user/user01/data/uber.csv").as[Uber]
+    // Spark 2.3.1
+    val df: Dataset[Uber] = spark.read.option("inferSchema", "false").schema(schema).csv("/data/uber.csv").as[Uber]
 
     df.cache
     df.show
