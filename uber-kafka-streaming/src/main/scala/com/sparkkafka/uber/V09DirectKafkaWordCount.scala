@@ -44,6 +44,7 @@ import org.apache.spark.streaming.kafka09.{ ConsumerStrategies, KafkaUtils, Loca
 
 object V09DirectKafkaWordCount {
   def main(args: Array[String]) {
+    
 
     val groupId = "testgroup"
     val offsetReset = "earliest"
