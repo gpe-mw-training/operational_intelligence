@@ -30,7 +30,7 @@ import org.apache.spark.rdd.RDD
  * Usage: SparkKafkaConsumerProducer  <model> <topicssubscribe> <topicspublish>
  *
  *   <model>  is the path to the saved model
- *   <topics> is a  topic to consume from
+ *   <topics> is a  topic to consume from 
  *   <topicp> is a  topic to publish to
  * Example:
  *    $  spark-submit --class com.sparkkafka.uber.SparkKafkaConsumerProducer --master local[2] \
