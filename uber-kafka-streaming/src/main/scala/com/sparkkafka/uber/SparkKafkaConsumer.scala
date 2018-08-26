@@ -38,7 +38,7 @@ case class UberC(dt: String, lat: Double, lon: Double, cid: Integer, clat: Doubl
     val offsetReset = "earliest"
     val pollTimeout = "5000"
     val Array(topicc) = args
-    val brokers = "localhost:9092" // To be tested with Nandan's Kafka broker 
+    val brokers = "172.30.218.203:9092" // Nandan's Kafka broker (Cluster IP)
     val sparkConf = new SparkConf()
       .setAppName(SparkKafkaConsumer.getClass.getName)
 
