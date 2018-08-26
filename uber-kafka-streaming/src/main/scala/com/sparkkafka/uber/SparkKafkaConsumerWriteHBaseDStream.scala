@@ -1,4 +1,4 @@
-package com.sparkkafka.uber
+/*package com.sparkkafka.uber
 
 import org.apache.kafka.clients.consumer.ConsumerConfig
 import org.apache.spark._
@@ -21,14 +21,14 @@ import org.apache.kafka.clients.consumer.ConsumerConfig
 import org.apache.spark.streaming.{ Seconds, StreamingContext }
 import org.apache.spark.streaming.kafka09.{ ConsumerStrategies, KafkaUtils, LocationStrategies }
 import org.apache.spark.streaming.kafka.producer._
-import org.apache.hadoop.hbase.spark.HBaseDStreamFunctions._
+import org.apache.hadoop.hbase.spark.HBaseDStreamFunctions._*/
 /*
 see doc here
 http://maprdocs.mapr.com/home/Spark/IntegrationSparkStreaming.html
  see example here
  https://github.com/mapr/hbase/blob/1.1.8-mapr-1703/hbase-spark/src/test/scala/org/apache/hadoop/hbase/spark/HBaseDStreamFunctionsSuite.scala
 */
-object SparkKafkaConsumerWriteHBaseDStream {
+/*object SparkKafkaConsumerWriteHBaseDStream {
 
   case class UberC(dt: String, lat: Double, lon: Double, cid: Integer, clat: Double, clon: Double, base: String) extends Serializable
   final val cfDataBytes = Bytes.toBytes("data")
@@ -108,4 +108,4 @@ object SparkKafkaConsumerWriteHBaseDStream {
     ssc.stop(stopSparkContext = true, stopGracefully = true)
   }
 
-}
+}*/
