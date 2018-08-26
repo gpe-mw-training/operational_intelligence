@@ -1,4 +1,4 @@
-package com.sparkkafka.uber
+/*package com.sparkkafka.uber
 
 import org.apache.kafka.clients.consumer.ConsumerConfig
 import org.apache.spark._
@@ -25,8 +25,9 @@ import org.apache.spark.streaming.kafka09.{ ConsumerStrategies, KafkaUtils, Loca
 import org.apache.spark.streaming.kafka.producer._
 
 /*
-
+ This class is to write in HBase Tables
 */
+/*
 object SparkKafkaConsumerWriteHBase {
 
   case class UberC(dt: String, lat: Double, lon: Double, cid: Integer, clat: Double, clon: Double, base: String) extends Serializable
@@ -126,4 +127,4 @@ object SparkKafkaConsumerWriteHBase {
     ssc.stop(stopSparkContext = true, stopGracefully = true)
   }
 
-}
+}*/
