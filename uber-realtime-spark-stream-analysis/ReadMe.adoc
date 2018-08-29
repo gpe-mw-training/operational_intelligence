@@ -94,23 +94,23 @@ image::https://github.com/Pkrish15/uber-datanalysis/blob/master/picture5.png[ber
 
 Parse the DataSet Records (Uber case class)
 
-image::https://github.com/Pkrish15/uber-datanalysis/blob/master/picture5.png[berstream14]
+image::https://github.com/Pkrish15/uber-datanalysis/blob/master/update1.png[berstream14]
 
 Load the KMeans model
 
 The Spark KMeansModel class is used to load the saved K-means model fitted on the historical Uber trip data.
 
-image::https://github.com/Pkrish15/uber-datanalysis/blob/master/picture5.png[berstream14]
+image::https://github.com/Pkrish15/uber-datanalysis/blob/master/update2.png[berstream14]
 
 Output of model clusterCenters:
 
-image::https://github.com/Pkrish15/uber-datanalysis/blob/master/picture5.png[berstream14]
+image::https://github.com/Pkrish15/uber-datanalysis/blob/master/update3.png[berstream14]
 
 
 Below the cluster centers are displayed on a google map:
 
 
-image::https://github.com/Pkrish15/uber-datanalysis/blob/master/picture5.png[berstream14]
+image::https://github.com/Pkrish15/uber-datanalysis/blob/master/update4.png[berstream14]
 
 
 
@@ -131,23 +131,23 @@ Bootstrap servers: this can be set to a dummy host:port since the broker address
 
 ConsumerStrategies.Subscribe, as shown below, is used to set the topics and Kafka configuration parameters. We use the KafkaUtils createDirectStream method with a StreamingContext, the consumer and location strategies, to create an input stream from a MapR Streams topic. This creates a DStream that represents the stream of incoming data, where each message is a key value pair. We use the DStream map transformation to create a DStream with the message values.
 
-image::https://github.com/Pkrish15/uber-datanalysis/blob/master/picture5.png[berstream14]
+image::https://github.com/Pkrish15/uber-datanalysis/blob/master/update5.png[berstream14]
 
 
-image::https://github.com/Pkrish15/uber-datanalysis/blob/master/picture5.png[berstream14]
+image::https://github.com/Pkrish15/uber-datanalysis/blob/master/update6.png[berstream14]
 
 
 Apply transformations (which create new DStreams).
 
-image::https://github.com/Pkrish15/uber-datanalysis/blob/master/picture5.png[berstream14]
+image::https://github.com/Pkrish15/uber-datanalysis/blob/master/update7.png[berstream14]
 
 
-image::https://github.com/Pkrish15/uber-datanalysis/blob/master/picture5.png[berstream14]
+image::https://github.com/Pkrish15/uber-datanalysis/blob/master/update8.png[berstream14]
 
 A VectorAssembler is used to transform and return a new DataFrame with the latitude and longitude feature columns in a vector column.
 
 
-image::https://github.com/Pkrish15/uber-datanalysis/blob/master/picture5.png[berstream14]
+image::https://github.com/Pkrish15/uber-datanalysis/blob/master/update9.png[berstream14]
 
 
 
@@ -155,21 +155,21 @@ Then the model is used to get the clusters from the features with the model tran
 
 
 
-image::https://github.com/Pkrish15/uber-datanalysis/blob/master/picture5.png[berstream14]
+image::https://github.com/Pkrish15/uber-datanalysis/blob/master/update10.png[berstream14]
 
 
 Write messages from the transformed DStream to a Topic.
 
-image::https://github.com/Pkrish15/uber-datanalysis/blob/master/picture5.png[berstream14]
+image::https://github.com/Pkrish15/uber-datanalysis/blob/master/update11.png[berstream14]
 
 
 
 The Dataset result of the query is converted to JSON RDD Strings, then the RDD sendToKafka method is used to send the JSON key-value messages to a topic (the key is null in this case).
 
-image::https://github.com/Pkrish15/uber-datanalysis/blob/master/picture5.png[berstream14]
+image::https://github.com/Pkrish15/uber-datanalysis/blob/master/update12.png[berstream14]
 
 
-image::https://github.com/Pkrish15/uber-datanalysis/blob/master/picture5.png[berstream14]
+image::https://github.com/Pkrish15/uber-datanalysis/blob/master/update13.png[berstream14]
 
 
 
@@ -182,12 +182,12 @@ Spark Kafka Consumer Code
 
 Next, we will go over some of the Spark streaming code which consumes the JSON-enriched messages.
 
-image::https://github.com/Pkrish15/uber-datanalysis/blob/master/picture5.png[berstream14]
+image::https://github.com/Pkrish15/uber-datanalysis/blob/master/update14.png[berstream14]
 
 
 We specify the schema with a Spark Structype:
 
-image::https://github.com/Pkrish15/uber-datanalysis/blob/master/picture5.png[berstream14]
+image::https://github.com/Pkrish15/uber-datanalysis/blob/master/update15.png[berstream14]
 
 Below is the code for:
 
@@ -196,7 +196,7 @@ Converting the JSON message values to Dataset[Row] using spark.read.json with th
 Creating two temporary views for subsequent SQL queries
 Using ssc.remember to cache data for queries
 
-image::https://github.com/Pkrish15/uber-datanalysis/blob/master/picture5.png[berstream14]
+image::https://github.com/Pkrish15/uber-datanalysis/blob/master/update16.png[berstream14]
 
 
 Now we can query the streaming data to ask questions like: which hours had the highest number of pickups? (Output is shown in a Zeppelin notebook):
@@ -206,7 +206,7 @@ spark.sql("SELECT hour(uber.dt) as hr,count(cluster) as ct FROM uber group By ho
 
 
 
-image::https://github.com/Pkrish15/uber-datanalysis/blob/master/picture5.png[berstream14]
+image::https://github.com/Pkrish15/uber-datanalysis/blob/master/update17.png[berstream14]
 
 
 How many pickups occurred in each cluster?
