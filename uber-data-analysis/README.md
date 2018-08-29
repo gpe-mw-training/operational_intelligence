@@ -1,6 +1,4 @@
-# Data Discovery Phase  - First Phase
-# Analytics using the Data Model - Second Phase 
-
+# Uber Data Analysis
 # Where do we get these DataSets? <br>
 http://www.nyc.gov/html/tlc/html/about/trip_record_data.shtml <br>
 http://www.nyc.gov/html/tlc/downloads/pdf/data_dictionary_trip_records_green.pdf <br>
@@ -8,7 +6,7 @@ http://data.beta.nyc/dataset/uber-trip-data-foiled-apr-sep-2014 <br>
 https://developer.uber.com/docs/businesses/data-automation/data-download <br>
 
 
-#  Detailed Explaination of the first phase - Data Discovery Phase
+#  Detailed Explaination of Uber Data Analysis
 
 1) Why this phase is needed? <br>
    This phase is needed to study about the historical data, and observe the pattern recognition of the uber system which is needed. Based on this we can arrive a conclusion for better decision making and predictions.<br>
