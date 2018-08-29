@@ -29,7 +29,7 @@
 ** `Interactive Notebooks - Jupyter and Zeppelin`
 ** `git` command basics
 
-
+ 
 :numbered:
 
 == Overview
