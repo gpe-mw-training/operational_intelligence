@@ -53,7 +53,7 @@ image::https://github.com/Pkrish15/uber-datanalysis/blob/master/picture1.png[ube
 
 === Code Analysis of Lab 3
 
-https://github.com/gpe-mw-training/operational_intelligence/tree/master/uber-kafka-streaming
+https://github.com/gpe-mw-training/operational_intelligence/tree/master/uber-realtime-spark-streaming/
 
 There are 6 main programs in the GitHub, We can individually deploy as a Spark Job or Can execute in the Zeppelin Notebook.
 Entire Flow is with KafkaProducerConsumer.scala. Hence we analyse with this code and apply in the zeppelin notebook.
