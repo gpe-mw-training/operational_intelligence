@@ -62,15 +62,15 @@ Entire Flow is with KafkaProducerConsumer.scala. Hence we analyse with this code
 
 A Spark streaming application subscribed to the first topic:
 
-Ingests a stream of uber trip events
+==== Ingests a stream of uber trip events
 
-Identifies the location cluster corresponding to the latitude and longitude of the uber trip.
+==== Identifies the location cluster corresponding to the latitude and longitude of the uber trip.
 
-Adds the cluster location to the event and publishes the results in JSON format to another topic.
+==== Adds the cluster location to the event and publishes the results in JSON format to another topic.
 
 A Spark streaming application subscribed to the second topic:
 
-Analyzes the uber trip location clusters that are popular by date and time.
+==== Analyzes the uber trip location clusters that are popular by date and time.
 
 image::https://github.com/Pkrish15/uber-datanalysis/blob/master/picture2.png[uberstream11]
 
@@ -93,20 +93,145 @@ image::https://github.com/Pkrish15/uber-datanalysis/blob/master/picture5.png[ber
 === Perform these steps on the code or in Zeppelin Notebook
 
 Parse the DataSet Records (Uber case class)
+
+image::https://github.com/Pkrish15/uber-datanalysis/blob/master/picture5.png[berstream14]
+
 Load the KMeans model
+
+The Spark KMeansModel class is used to load the saved K-means model fitted on the historical Uber trip data.
+
+image::https://github.com/Pkrish15/uber-datanalysis/blob/master/picture5.png[berstream14]
+
+Output of model clusterCenters:
+
+image::https://github.com/Pkrish15/uber-datanalysis/blob/master/picture5.png[berstream14]
+
+
+Below the cluster centers are displayed on a google map:
+
+
+image::https://github.com/Pkrish15/uber-datanalysis/blob/master/picture5.png[berstream14]
+
+
+
 === Spark Streaming Code
 
 These are the basic steps for the Spark Streaming Consumer Producer code:
 
-Configure Kafka Consumer Producer properties.
+==== Configure Kafka Consumer Producer properties.
 
-Initialize a Spark StreamingContext object. Using this context, create a DStream which reads message from a Topic.
+The first step is to set the KafkaConsumer and KafkaProducer configuration properties, which will be used later to create a DStream for receiving/sending messages to topics. You need to set the following paramters:
+
+Key and value deserializers: for deserializing the message.
+Auto offset reset: to start reading from the earliest or latest message.
+Bootstrap servers: this can be set to a dummy host:port since the broker address is not actually used by Spark Streams.
+
+
+==== Initialize a Spark StreamingContext object. Using this context, create a DStream which reads message from a Topic.
+
+ConsumerStrategies.Subscribe, as shown below, is used to set the topics and Kafka configuration parameters. We use the KafkaUtils createDirectStream method with a StreamingContext, the consumer and location strategies, to create an input stream from a MapR Streams topic. This creates a DStream that represents the stream of incoming data, where each message is a key value pair. We use the DStream map transformation to create a DStream with the message values.
+
+image::https://github.com/Pkrish15/uber-datanalysis/blob/master/picture5.png[berstream14]
+
+
+image::https://github.com/Pkrish15/uber-datanalysis/blob/master/picture5.png[berstream14]
+
 
 Apply transformations (which create new DStreams).
 
+image::https://github.com/Pkrish15/uber-datanalysis/blob/master/picture5.png[berstream14]
+
+
+image::https://github.com/Pkrish15/uber-datanalysis/blob/master/picture5.png[berstream14]
+
+A VectorAssembler is used to transform and return a new DataFrame with the latitude and longitude feature columns in a vector column.
+
+
+image::https://github.com/Pkrish15/uber-datanalysis/blob/master/picture5.png[berstream14]
+
+
+
+Then the model is used to get the clusters from the features with the model transform method, which returns a DataFrame with the cluster predictions.
+
+
+
+image::https://github.com/Pkrish15/uber-datanalysis/blob/master/picture5.png[berstream14]
+
+
 Write messages from the transformed DStream to a Topic.
 
+image::https://github.com/Pkrish15/uber-datanalysis/blob/master/picture5.png[berstream14]
+
+
+
+The Dataset result of the query is converted to JSON RDD Strings, then the RDD sendToKafka method is used to send the JSON key-value messages to a topic (the key is null in this case).
+
+image::https://github.com/Pkrish15/uber-datanalysis/blob/master/picture5.png[berstream14]
+
+
+image::https://github.com/Pkrish15/uber-datanalysis/blob/master/picture5.png[berstream14]
+
+
+
 Start receiving data and processing. Wait for the processing to be stopped.
+==== To start receiving data, we must explicitly call start() on the StreamingContext, then call awaitTermination to wait for the streaming computation to finish.
+
+
+
+Spark Kafka Consumer Code
+
+Next, we will go over some of the Spark streaming code which consumes the JSON-enriched messages.
+
+image::https://github.com/Pkrish15/uber-datanalysis/blob/master/picture5.png[berstream14]
+
+
+We specify the schema with a Spark Structype:
+
+image::https://github.com/Pkrish15/uber-datanalysis/blob/master/picture5.png[berstream14]
+
+Below is the code for:
+
+Creating a Direct Kafka Stream
+Converting the JSON message values to Dataset[Row] using spark.read.json with the schema
+Creating two temporary views for subsequent SQL queries
+Using ssc.remember to cache data for queries
+
+image::https://github.com/Pkrish15/uber-datanalysis/blob/master/picture5.png[berstream14]
+
+
+Now we can query the streaming data to ask questions like: which hours had the highest number of pickups? (Output is shown in a Zeppelin notebook):
+
+
+spark.sql("SELECT hour(uber.dt) as hr,count(cluster) as ct FROM uber group By hour(uber.dt)")
+
+
+
+image::https://github.com/Pkrish15/uber-datanalysis/blob/master/picture5.png[berstream14]
+
+
+How many pickups occurred in each cluster?
+
+df.groupBy("cluster").count().show()
+
+or
+
+spark.sql("select cluster, count(cluster) as count from uber group by cluster")
+
+
+
+Which hours of the day and which cluster had the highest number of pickups?
+
+spark.sql("SELECT hour(uber.dt) as hr,count(cluster) as ct FROM uber group By hour(uber.dt)")
+
+
+
+Display datetime and cluster counts for Uber trips:
+
+%sql select cluster, dt, count(cluster) as count from uber group by dt, cluster order by dt, cluster
+
+
+
+
 
 We will go through each of these steps with the example application code.
 
