@@ -130,7 +130,13 @@ items:
               image: ${APPLICATION_NAME}
               imagePullPolicy: IfNotPresent
               name: ${APPLICATION_NAME}
-              resources: {}
+              resources:
+                limits:
+                  cpu: 1000m
+                  memory: 3Gi
+                requests:
+                  cpu: 500m
+                  memory: 550Mi
               terminationMessagePath: /dev/termination-log
               volumeMounts:
               - mountPath: /etc/podinfo
@@ -322,7 +328,13 @@ items:
               image: ${APPLICATION_NAME}
               imagePullPolicy: IfNotPresent
               name: ${APPLICATION_NAME}
-              resources: {}
+              resources: 
+                limits:
+                  cpu: 1000m
+                  memory: 3Gi
+                requests:
+                  cpu: 500m
+                  memory: 550Mi
               terminationMessagePath: /dev/termination-log
               volumeMounts:
               - mountPath: /etc/podinfo
@@ -517,7 +529,13 @@ items:
               image: ${APPLICATION_NAME}
               imagePullPolicy: IfNotPresent
               name: ${APPLICATION_NAME}
-              resources: {}
+              resources: 
+                limits:
+                  cpu: 1000m
+                  memory: 3Gi
+                requests:
+                  cpu: 500m
+                  memory: 550Mi
               terminationMessagePath: /dev/termination-log
               volumeMounts:
               - mountPath: /etc/podinfo
@@ -716,7 +734,13 @@ items:
               image: ${APPLICATION_NAME}
               imagePullPolicy: IfNotPresent
               name: ${APPLICATION_NAME}
-              resources: {}
+              resources: 
+                limits:
+                  cpu: 1000m
+                  memory: 3Gi
+                requests:
+                  cpu: 500m
+                  memory: 550Mi
               terminationMessagePath: /dev/termination-log
               volumeMounts:
               - mountPath: /etc/podinfo
