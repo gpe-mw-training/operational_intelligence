@@ -109,6 +109,14 @@ objects:
       port: 8080
       protocol: TCP
       targetPort: 8080
+    - name: 42000-tcp
+      port: 42000
+      protocol: TCP
+      targetPort: 42000
+    - name: 42100-tcp
+      port: 42100
+      protocol: TCP
+      targetPort: 42100
     selector:
       deploymentconfig: ${APPLICATION_NAME}
     sessionAffinity: None
