@@ -1100,6 +1100,13 @@ items:
                 - name: ${OSHINKO_WEB_NAME}
                   image: ${OSHINKO_WEB_IMAGE}
                   imagePullPolicy: Always
+                  resources:
+                    limits:
+                      cpu: 1000m
+                      memory: 3Gi
+                    requests:
+                      cpu: 500m
+                      memory: 550Mi
                   ports:
                     - name: o-web-port
                       containerPort: 8080
@@ -1140,6 +1147,13 @@ items:
                 - name: oc-proxy
                   image: ${OSHINKO_WEB_IMAGE}
                   imagePullPolicy: IfNotPresent
+                  resources:
+                    limits:
+                      cpu: 1000m
+                      memory: 3Gi
+                    requests:
+                      cpu: 500m
+                      memory: 550Mi
                   command:
                     - "/usr/src/app/oc"
                   args:
