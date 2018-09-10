@@ -15,21 +15,6 @@ spec:
       - name: kafka-producer
         image: strimzici/hello-world-producer:support-training
         env:
-          - name: CA_CRT
-            valueFrom:
-              secretKeyRef:
-                name: my-cluster-cluster-ca-cert
-                key: ca.crt
-          - name: USER_CRT
-            valueFrom:
-              secretKeyRef:
-                name: my-user
-                key: user.crt
-          - name: USER_KEY
-            valueFrom:
-              secretKeyRef:
-                name: my-user
-                key: user.key
           - name: BOOTSTRAP_SERVERS
             value: my-cluster-kafka-bootstrap:9093
           - name: TOPIC
