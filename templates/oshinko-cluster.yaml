@@ -1079,6 +1079,13 @@ items:
         spec:
           strategy:
             type: Rolling
+            resources:
+              limits:
+                cpu: "2"
+                memory: 6Gi
+              requests:
+                cpu: "1"
+                memory: 2Gi
           triggers:
             - type: ConfigChange
           replicas: 1
