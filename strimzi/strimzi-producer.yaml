@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: kafka-producer
-        image: strimzici/hello-world-producer:support-training
+        image: strimzi/hello-world-producer:latest
         resources:
           limits:
             cpu: "2"
@@ -23,7 +23,7 @@ spec:
             memory: 1Gi
         env:
           - name: BOOTSTRAP_SERVERS
-            value: my-cluster-kafka-bootstrap:9093
+            value: my-cluster-kafka-bootstrap:9092
           - name: TOPIC
             value: my-topic
           - name: DELAY_MS
