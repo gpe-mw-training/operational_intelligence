@@ -67,11 +67,11 @@ items:
             type: Rolling
             resources:
               limits:
-                cpu: "2"
-                memory: 6Gi
+                cpu: "4"
+                memory: 12Gi
               requests:
-                cpu: "1"
-                memory: 2Gi
+                cpu: "2"
+                memory: 4Gi
           triggers:
             - type: ConfigChange
           replicas: 1
@@ -89,7 +89,7 @@ items:
                   resources:
                     limits:
                       cpu: 1000m
-                      memory: 3Gi
+                      memory: 6Gi
                     requests:
                       cpu: 500m
                       memory: 550Mi
