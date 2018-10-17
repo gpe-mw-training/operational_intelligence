@@ -132,10 +132,10 @@ items:
               name: ${APPLICATION_NAME}
               resources:
                 limits:
-                  cpu: 1000m
-                  memory: 3Gi
+                  cpu: "1"
+                  memory: 1Gi
                 requests:
-                  cpu: 500m
+                  cpu: "1"
                   memory: 550Mi
               terminationMessagePath: /dev/termination-log
               volumeMounts:
@@ -330,10 +330,10 @@ items:
               name: ${APPLICATION_NAME}
               resources: 
                 limits:
-                  cpu: 1000m
+                  cpu: "1" 
                   memory: 3Gi
                 requests:
-                  cpu: 500m
+                  cpu: "1"
                   memory: 550Mi
               terminationMessagePath: /dev/termination-log
               volumeMounts:
@@ -531,10 +531,10 @@ items:
               name: ${APPLICATION_NAME}
               resources: 
                 limits:
-                  cpu: 1000m
+                  cpu: "1"
                   memory: 3Gi
                 requests:
-                  cpu: 500m
+                  cpu: "1"
                   memory: 550Mi
               terminationMessagePath: /dev/termination-log
               volumeMounts:
@@ -736,10 +736,10 @@ items:
               name: ${APPLICATION_NAME}
               resources: 
                 limits:
-                  cpu: 1000m
+                  cpu: "1"
                   memory: 3Gi
                 requests:
-                  cpu: 500m
+                  cpu: "1"
                   memory: 550Mi
               terminationMessagePath: /dev/termination-log
               volumeMounts:
@@ -1081,8 +1081,8 @@ items:
             type: Rolling
             resources:
               limits:
-                cpu: "2"
-                memory: 6Gi
+                cpu: "1"
+                memory: 2Gi
               requests:
                 cpu: "1"
                 memory: 2Gi
@@ -1102,10 +1102,10 @@ items:
                   imagePullPolicy: Always
                   resources:
                     limits:
-                      cpu: 1000m
+                      cpu: "1"
                       memory: 3Gi
                     requests:
-                      cpu: 500m
+                      cpu: "1"
                       memory: 550Mi
                   ports:
                     - name: o-web-port
@@ -1149,10 +1149,10 @@ items:
                   imagePullPolicy: IfNotPresent
                   resources:
                     limits:
-                      cpu: 1000m
+                      cpu: "1"
                       memory: 3Gi
                     requests:
-                      cpu: 500m
+                      cpu: "1"
                       memory: 550Mi
                   command:
                     - "/usr/src/app/oc"
