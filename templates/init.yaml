@@ -8,7 +8,7 @@ spec:
   containers:
   - name: myapp-container
     image: busybox
-    command: ['sh', '-c', 'echo The app is running! && sleep 3600']
+    command: ['sh', '-c', 'curl -H "Accept: application/zip" https://github.com/gpe-mw-training/operational_intelligence/blob/master/thirdpartyjars/kafka-clients-2.0.0.jar -o kafka-clients-2.0.0.jar']
   initContainers:
   - name: init-myservice 
     image: busybox
