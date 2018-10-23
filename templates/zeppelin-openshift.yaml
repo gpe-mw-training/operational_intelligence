@@ -96,6 +96,16 @@ objects:
     replicas: 0
     unavailableReplicas: 0
     updatedReplicas: 0
+   initContainers:
+        - name: ${APPLICATION_NAME}
+          image: ${APPLICATION_NAME}
+          command: ["echo","-n","sleeping ------------ Hello World -----------------------"]
+        volumeMounts:
+        - name: ${APPLICATION_NAME}
+          mountPath: /data
+        volumes:
+        - name: ${APPLICATION_NAME}
+          hostPath: {}
 - apiVersion: v1
   kind: Service
   metadata:
