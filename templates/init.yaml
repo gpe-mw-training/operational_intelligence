@@ -1,35 +1,18 @@
 Version: v1
 kind: Pod
 metadata:
-  name: init-demo
+  name: myapp-pod
   labels:
-    app: init
+    app: myapp
 spec:
   containers:
-  - name: app-container
+  - name: myapp-container
     image: busybox
     command: ['sh', '-c', 'echo The app is running! && sleep 3600']
-    resources:
-       limits: 
-         cpu: "250m"
-         memory: 100Mi
-      requests:
-        cpu: "250m"
-        memory: 100Mi
-     terminationMessagePath: /dev/termination-log   
-  
-initContainers:
-  - name: init-clone-repo
-    image: alpine/git
-    args:
-        - clone
-        - --single-branch
-        - --
-        - https://github.com/gpe-mw-training/operational_intelligence.git 
-        - /u02/test/repo 
-    volumeMounts:
-    - name: git-repo
-      mountPath: /u02/test/repo
-  volumes:
-  - name: git-repo
-    
+  initContainers:
+  - name: init-myservice 
+    image: busybox
+    command: ['sh', '-c', 'until nslookup myservice; do echo waiting for myservice; sleep 2; done;']
+  - name: init-mydb 
+    image: busybox
+    command: ['sh', '-c', 'until nslookup mydb; do echo waiting for mydb; sleep 2; done;']
