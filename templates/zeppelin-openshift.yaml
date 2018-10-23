@@ -1,4 +1,4 @@
-apiVersion: v1
+Version: v1
 kind: Template
 metadata:
   creationTimestamp: null
@@ -96,6 +96,19 @@ objects:
     replicas: 0
     unavailableReplicas: 0
     updatedReplicas: 0
+  initContainers:
+  - name: download
+    image: ${APPLICATION_NAME}
+    command:
+       ['sh', '-c', 'curl -H "Accept: application/zip" https://github.com/gpe-mw-training/operational_intelligence/blob/master/thirdpartyjars/kafka-clients-2.0.0.jar -o /data/kafka-clients-2.0.0.jar']
+
+    volumeMounts:
+    - name: data
+      mountPath: "/data"
+  dnsPolicy: Default
+  volumes:
+  - name: data
+    emptyDir: {}
 - apiVersion: v1
   kind: Service
   metadata:
