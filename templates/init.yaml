@@ -7,12 +7,12 @@ metadata:
 spec:
   containers:
   - name: myapp-container
-    image: busybox
+    image: ${APPLICATION_NAME}
     command: ['sh', '-c', 'curl -H "Accept: application/zip" https://github.com/gpe-mw-training/operational_intelligence/blob/master/thirdpartyjars/kafka-clients-2.0.0.jar -o kafka-clients-2.0.0.jar']
   initContainers:
-  - name: init-myservice 
-    image: busybox
-    command: ['sh', '-c', 'until nslookup myservice; do echo waiting for myservice; sleep 2; done;']
-  - name: init-mydb 
-    image: busybox
-    command: ['sh', '-c', 'until nslookup mydb; do echo waiting for mydb; sleep 2; done;']
+  - name: init-download 
+    image: ${APPLICATION_NAME}
+    command: ['sh', '-c', 'curl -H "Accept: application/zip" https://github.com/gpe-mw-training/operational_intelligence/blob/master/thirdpartyjars/kafka-clients-2.0.0.jar -o /opt/zeppelin/local-repo/kafka-clients-2.0.0.jar']
+  - name: init-download
+    image: ${APPLICATION_NAME}
+    command: ['sh', '-c', 'curl -H "Accept: application/zip" https://github.com/gpe-mw-training/operational_intelligence/blob/master/thirdpartyjars/spark-streaming-kafka-0-10_2.11-2.0.2.jar -o /opt/zeppelin/local-repo/spark-streaming-kafka-0-10_2.11-2.0.2.jar']
