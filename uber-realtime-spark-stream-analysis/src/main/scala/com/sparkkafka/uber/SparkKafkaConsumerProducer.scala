@@ -1,6 +1,5 @@
+
 package com.sparkkafka.uber
-
-
 import org.apache.spark._
 
 import org.apache.spark.SparkContext._
@@ -34,8 +33,10 @@ import org.apache.spark.rdd.RDD
  *   <topicp> is a  topic to publish to
  * Example:
  *    $  spark-submit --class com.sparkkafka.uber.SparkKafkaConsumerProducer --master local[2] \
- * uber-sparkml-streaming-uber-1.0.jar /user/user01/data/savemodel  /user/user01/stream:ubers /user/user01/stream:uberp
+ * mapr-sparkml-streaming-uber-1.0.jar /user/user01/data/savemodel  /user/user01/stream:ubers /user/user01/stream:uberp
  *
+ *    for more information
+ *    http://maprdocs.mapr.com/home/Spark/Spark_IntegrateMapRStreams_Consume.html
  */
 
 object SparkKafkaConsumerProducer extends Serializable {
@@ -62,15 +63,15 @@ object SparkKafkaConsumerProducer extends Serializable {
     }
 
     val Array(modelpath, topics, topicp) = args
-    System.out.println("Use model " + modelpath + " Subscribe to : " + topics + " Publish to: " + topicp)
+    System.out.println("Use model " + modelpath + " Subscribe to : " + topics + " Publish to: " + topics)
 
-    val brokers = "172.30.120.42:9092" // not needed for MapR Streams, needed for Kafka
+    val brokers = "localhost:9092" // 
     val groupId = "sparkApplication"
     val batchInterval = "2"
     val pollTimeout = "10000"
-
+    
     val sparkConf = new SparkConf().setAppName("UberStream")
-    val spark = SparkSession.builder().appName("ClusterUber").getOrCreate()
+    val spark = SparkSession.builder().appName("ClusterUber").master("local[*]").getOrCreate()
     val ssc = new StreamingContext(spark.sparkContext, Seconds(batchInterval.toInt))
 
     import spark.implicits._
