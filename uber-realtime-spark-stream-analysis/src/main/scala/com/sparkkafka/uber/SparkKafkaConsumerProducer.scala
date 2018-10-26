@@ -23,7 +23,7 @@ import org.apache.spark.ml.clustering.KMeansModel
 import org.apache.spark.rdd.RDD
 
 /**
- * Consumes messages from a topic in MapR Streams using the Kafka interface,
+ * Consumes messages from a topic in Kafka Streams using the Kafka interface,
  * enriches the message with  the k-means model cluster id and publishs the result in json format
  * to another topic
  * Usage: SparkKafkaConsumerProducer  <model> <topicssubscribe> <topicspublish>
@@ -33,10 +33,9 @@ import org.apache.spark.rdd.RDD
  *   <topicp> is a  topic to publish to
  * Example:
  *    $  spark-submit --class com.sparkkafka.uber.SparkKafkaConsumerProducer --master local[2] \
- * mapr-sparkml-streaming-uber-1.0.jar /user/user01/data/savemodel  /user/user01/stream:ubers /user/user01/stream:uberp
+ * mapr-sparkml-streaming-uber-1.0.jar /u02/data/savemodel  /u02/data/stream:ubers /u02/data/stream:uberp
  *
- *    for more information
- *    http://maprdocs.mapr.com/home/Spark/Spark_IntegrateMapRStreams_Consume.html
+ * 
  */
 
 object SparkKafkaConsumerProducer extends Serializable {
