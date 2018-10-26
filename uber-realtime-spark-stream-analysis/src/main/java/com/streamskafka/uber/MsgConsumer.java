@@ -1,4 +1,4 @@
-/* Copyright (c) 2009 & onwards. MapR Tech, Inc., All rights reserved */
+
 package com.streamskafka.uber;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -19,7 +19,7 @@ public class MsgConsumer {
     public static void main(String[] args) throws IOException {
         configureConsumer(args);
 
-        String topic = "/user/user01/stream:uberp";
+        String topic = "UberTopic";
         if (args.length == 1) {
             topic = args[0];
         }
@@ -48,15 +48,14 @@ public class MsgConsumer {
                 while (iter.hasNext()) {
                     ConsumerRecord<String, String> record = iter.next();
                     System.out.println(record.value());
-
                 }
             }
             waitTime = waitTime - 1000; // decrease time for loop
-        }
+        
         //consumer.close();
-      //  System.out.println("Total number of messages received: " + numberOfMsgsReceived);
-      //  System.out.println("All done.");
-
+        System.out.println("Total number of messages received: " + numberOfMsgsReceived);
+        System.out.println("All done.");
+        }
     }
 
     /* Set the value for configuration parameters.*/
@@ -69,6 +68,11 @@ public class MsgConsumer {
         //  which class to use to deserialize the value of each message
         props.put("value.deserializer",
                 "org.apache.kafka.common.serialization.StringDeserializer");
+        props.put("bootstrap.servers", "localhost:9092");
+        props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+        props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+        props.put("group.id","UberTopic");
+
 
         consumer = new KafkaConsumer<>(props);
     }
