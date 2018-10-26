@@ -38,7 +38,7 @@ object KafkaProducerExample extends App {
   
 
   val Array(topics) = args
-  val kafkaBrokers = "localhost:9092"
+  val kafkaBrokers = "uber-bootstrap-servers:9092"
   val numMessages = 10
 
   val batchTime = Seconds(2)
@@ -47,7 +47,7 @@ object KafkaProducerExample extends App {
     .set("spark.executor.memory", "1g")
     .set("spark.driver.memory", "1g")
     .setAppName(getClass.getCanonicalName)
-    .setMaster("local[*]")
+    .setMaster("spark://uber-realtime-data-cluster:7077")
   val ssc = new StreamingContext(sparkConf, batchTime)
 
   val producerConf = new ProducerConf(
