@@ -37,9 +37,9 @@ public class MsgConsumer {
             // Request unread messages from the topic.
             ConsumerRecords<String, String> msg = consumer.poll(pollTimeOut);
             if (msg.count() == 0) {
-              //  System.out.println("No messages after 1 second wait.");
+                System.out.println("No messages after 1 second wait.");
             } else {
-              //  System.out.println("Read " + msg.count() + " messages");
+                System.out.println("Read " + msg.count() + " messages");
                 numberOfMsgsReceived += msg.count();
 
                 // Iterate through returned records, extract the value
@@ -76,5 +76,4 @@ public class MsgConsumer {
 
         consumer = new KafkaConsumer<>(props);
     }
-
 }
