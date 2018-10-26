@@ -27,7 +27,7 @@ object KafkaConsumer {
     val ssc = new StreamingContext(sc, Seconds(10))
 
     val topic = "UberTopic"
-    val zkhosts = "localhost"
+    val zkhosts = "uber-zookeeper-host"
     val zkports = "2181"
 
     //Specify number of Receivers you need. 
@@ -37,9 +37,9 @@ object KafkaConsumer {
 	Map("zookeeper.hosts" -> zkhosts,
         "zookeeper.port" -> zkports,
         "kafka.topic" -> topic,
-        "zookeeper.consumer.connection" -> "localhost:2181",
+        "zookeeper.consumer.connection" -> "uber-zookeeper-host:2181",
         "kafka.consumer.id" -> "kafka-consumer",
-        "bootstrap.servers" -> "localhost:9092",
+        "bootstrap.servers" -> "uber-bootstrap-servers:9092",
         //optional properties
         "consumer.forcefromstart" -> "true",
         "consumer.backpressure.enabled" -> "true",
