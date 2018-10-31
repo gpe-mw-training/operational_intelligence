@@ -1,4 +1,4 @@
-/* Copyright (c) 2009 & onwards. MapR Tech, Inc., All rights reserved */
+
 package com.streamskafka.uber;
 
 import java.io.BufferedReader;
@@ -18,8 +18,8 @@ public class MsgProducer {
     public static void main(String[] args) throws Exception {
 
         // Set the default stream and topic to publish to.
-        String topic = "/user/user01/stream:ubers";
-        String fileName = "/user/user01/data/uber.csv";
+        String topic = "UberTopic";
+        String fileName = "/opt/zeppelin/notebook/data/cluster.txt";
 
         if (args.length == 2) {
             topic = args[0];
@@ -63,6 +63,9 @@ public class MsgProducer {
                 "org.apache.kafka.common.serialization.StringSerializer");
         props.put("value.serializer",
                 "org.apache.kafka.common.serialization.StringSerializer");
+        props.put("bootstrap.servers", "localhost:9092");
+        props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+        props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
 
         producer = new KafkaProducer<>(props);
     }
