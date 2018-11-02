@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 /**
  * 
  */
+=======
+
+>>>>>>> 5b3da222b0c6d92e74892317a63be9fb513f3474
 package com.streamskafka.uber;
 
 /**
@@ -22,7 +26,11 @@ public class MsgProducer {
 
         // Set the default stream and topic to publish to.
         String topic = "UberTopic";
+<<<<<<< HEAD
         String fileName = "/home/prakrish/workspace/uber-large-data-analysis/src/main/resources/data/cluster.txt";
+=======
+        String fileName = "/opt/zeppelin/notebook/data/cluster.txt";
+>>>>>>> 5b3da222b0c6d92e74892317a63be9fb513f3474
 
         if (args.length == 2) {
             topic = args[0];
