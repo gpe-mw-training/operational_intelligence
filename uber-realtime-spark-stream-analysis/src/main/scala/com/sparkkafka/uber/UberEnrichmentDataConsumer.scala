@@ -25,20 +25,22 @@ import org.apache.spark.rdd.RDD
 /**
  * Consumes messages from a topic in Kafka Streams using the Kafka interface,
  * enriches the message with  the k-means model cluster id and publishs the result in json format
- * to another topic
- * Usage: SparkKafkaConsumerProducer  <model> <topicssubscribe> <topicspublish>
+ * to another topic uberenricheddatatopic
+ * Consumes messages from uberrawdatatopic and pushes to uberenricheddatatopic
+ * Usage: UberEnrichmentofRawData  <model> <topicssubscribe> <topicspublish>
  *
  *   <model>  is the path to the saved model
  *   <topics> is a  topic to consume from
  *   <topicp> is a  topic to publish to
- * Example:
- *    $  spark-submit --class com.sparkkafka.uber.SparkKafkaConsumerProducer --master local[2] \
- * mapr-sparkml-streaming-uber-1.0.jar /u02/data/savemodel  /u02/data/stream:ubers /u02/data/stream:uberp
- *
- * 
+ * Execution on Single Node Cluster:
+ *    $  spark-submit --class com.sparkkafka.uber.UberEnrichmentofRawData --master local[2] \
+ * uberdataEnrichment.jar /u02/data/clusters.txt  uberrawdata  uberenricheddata 
+ * *
+ *    for more information
+ *    https://spark.apache.org/docs/2.2.0/streaming-kafka-0-8-integration.html
  */
 
-object SparkKafkaConsumerProducer extends Serializable {
+object UberEnrichmentDataConsumer extends Serializable {
 
   import org.apache.spark.streaming.kafka.producer._
   // schema for uber data   
@@ -55,16 +57,20 @@ object SparkKafkaConsumerProducer extends Serializable {
     val p = str.split(",")
     Uber(p(0), p(1).toDouble, p(2).toDouble, p(3))
   }
-
+  
+  
   def main(args: Array[String]): Unit = {
     if (args.length < 3) {
-      throw new IllegalArgumentException("You must specify the model path, subscribe topic and publish topic. For example /user/user01/data/savemodel /user/user01/stream:ubers /user/user01/stream:uberp ")
+      throw new IllegalArgumentException("You must specify the model path, subscribe topic and publish topic. For example /u02/data/clusters.txt uberrawdata uberenrichedrawdata ")
     }
 
     val Array(modelpath, topics, topicp) = args
+    
+    //topics = uberrawdatatopic
+    //topicp = uberenricheddatatopic
     System.out.println("Use model " + modelpath + " Subscribe to : " + topics + " Publish to: " + topics)
 
-    val brokers = "localhost:9092" // 
+    val brokers = "localhost:9092" 
     val groupId = "sparkApplication"
     val batchInterval = "2"
     val pollTimeout = "10000"
@@ -141,15 +147,27 @@ object SparkKafkaConsumerProducer extends Serializable {
 
         // select values to join with cluster centers
         // convert results to JSON string to send to topic 
+        // Adding the clusterId ("cid") to ResultSet using Join Function in SparkSQL
 
         val clust = categories.select($"dt", $"lat", $"lon", $"base", $"prediction".alias("cid")).orderBy($"dt")
         val res = clust.join(ccdf, Seq("cid")).orderBy($"dt")
+       //val rank= clust.join(($"cid"),Seq("cid"))
         res.show
+        //rank.show
+        //Data get Enriched now with ClusterId
 
         val tRDD: org.apache.spark.sql.Dataset[String] = res.toJSON
+        
+        tRDD.show
+        
+       // {"dt":"2014-08-01 00:04:00","lat":40.7047,"lon":-73.9349,"base":"B02617","cluster":6}
+
+        
 
         val temp: RDD[String] = tRDD.rdd
+        // Pushing the data (the above JSON) to uberrawenrichmentdata topic
         temp.sendToKafka[StringSerializer](topicp, producerConf)
+        
 
         println("sending messages")
         temp.take(2).foreach(println)

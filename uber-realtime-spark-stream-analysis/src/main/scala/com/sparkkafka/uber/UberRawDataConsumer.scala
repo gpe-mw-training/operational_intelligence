@@ -1,4 +1,3 @@
-
 package com.sparkkafka.uber
 
 import consumer.kafka.{ProcessedOffsetManager, ReceiverLauncher}
@@ -6,13 +5,13 @@ import org.apache.spark.storage.StorageLevel
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 import org.apache.spark.{SparkConf, SparkContext};
 
-object KafkaConsumer {
+object UberRawDataConsumer {
 
   def main(arg: Array[String]): Unit = {
 
-//    import org.apache.log4j.{Level, Logger}
-//    Logger.getLogger("org").setLevel(Level.OFF)
-//    Logger.getLogger("akka").setLevel(Level.OFF)
+   // import org.apache.log4j.{Level, Logger}
+   // Logger.getLogger("org").setLevel(Level.INFO)
+   // Logger.getLogger("akka").setLevel(Level.INFO)
 
     //Create SparkContext
     val conf = new SparkConf()
@@ -26,8 +25,8 @@ object KafkaConsumer {
     val sc = new SparkContext(conf)
     val ssc = new StreamingContext(sc, Seconds(10))
 
-    val topic = "UberTopic"
-    val zkhosts = "uber-zookeeper-host"
+    val topic = "uberrawdata"
+    val zkhosts = "localhost"
     val zkports = "2181"
 
     //Specify number of Receivers you need. 
@@ -37,9 +36,9 @@ object KafkaConsumer {
 	Map("zookeeper.hosts" -> zkhosts,
         "zookeeper.port" -> zkports,
         "kafka.topic" -> topic,
-        "zookeeper.consumer.connection" -> "uber-zookeeper-host:2181",
+        "zookeeper.consumer.connection" -> "localhost:2181",
         "kafka.consumer.id" -> "kafka-consumer",
-        "bootstrap.servers" -> "uber-bootstrap-servers:9092",
+        "bootstrap.servers" -> "localhost:9092",
         //optional properties
         "consumer.forcefromstart" -> "true",
         "consumer.backpressure.enabled" -> "true",
@@ -85,4 +84,3 @@ import org.apache.spark.sql._
   }
 
 }
-
