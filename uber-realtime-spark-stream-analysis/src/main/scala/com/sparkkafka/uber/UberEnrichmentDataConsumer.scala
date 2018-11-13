@@ -151,9 +151,12 @@ object UberEnrichmentDataConsumer extends Serializable {
 
         val clust = categories.select($"dt", $"lat", $"lon", $"base", $"prediction".alias("cid")).orderBy($"dt")
         val res = clust.join(ccdf, Seq("cid")).orderBy($"dt")
-       //val rank= clust.join(($"cid"),Seq("cid"))
+        
+        // Find the rank of Cluster using the parameters date, lat, lon and baseId and sort them.
+        val rank= res.orderBy($"dt",$"lat",$"lon",$"base")
+       // val rank= clust.join(($"cid"),Seq("cid"))
         res.show
-        //rank.show
+        rank.show
         //Data get Enriched now with ClusterId
 
         val tRDD: org.apache.spark.sql.Dataset[String] = res.toJSON
