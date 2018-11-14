@@ -1,4 +1,3 @@
-
 package com.redhat.gpte;
 
 import io.vertx.core.Vertx;
@@ -47,33 +46,32 @@ public class WebServer {
             }
         });
 
-        // Create a MapR Streams Consumer
-        //         KafkaConsumer<String, String> consumer;
-        //                 Properties properties = new Properties();
-        //                         properties.setProperty("group", "vertx_dashboard");
-        //                                 properties.setProperty("enable.auto.commit", "true");
-        //                                         properties.setProperty("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
-        //                                                 properties.setProperty("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
-        //                                                         properties.put("value.deserializer",
-        //                                                                         "org.apache.kafka.common.serialization.StringDeserializer");
-        //                                                                                 properties.put("bootstrap.servers", "localhost:9092");
-        //                                                                                         properties.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
-        //                                                                                                 properties.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
-        //                                                                                                         properties.put("group.id","UberTopic");
-        //
-        //                                                                                                                 consumer = new KafkaConsumer<>(properties);
-        //                                                                                                                  
-        //                                                                                                                          consumer.subscribe(Arrays.asList(uberrawdata));
-        //                                                                                                                                  System.out.println("consume from Kafka Topic " + uberrawdata + " publish to eventbus dashboard");
-        //                                                                                                                                          while (true) {
-        //                                                                                                                                                      ConsumerRecords<String, String> records = consumer.poll(200);
-        //                                                                                                                                                                  for (ConsumerRecord<String, String> record : records) {
-        //                                                                                                                                                                                  vertx.eventBus().publish("dashboard", record.value());
-        //                                                                                                                                                                                                  System.out.println(record.value());
-        //                                                                                                                                                                                                              }
-        //                                                                                                                                                                                                                          consumer.close();
-        //                                                                                                                                                                                                                                  }
-        //
-        //                                                                                                                                                                                                                                      }
-        //                                                                                                                                                                                                                                      }
-        //
+        // Create a Kafka Streams Consumer
+        KafkaConsumer<String, String> consumer;
+        Properties properties = new Properties();
+        properties.setProperty("group", "vertx_dashboard");
+        properties.setProperty("enable.auto.commit", "true");
+        properties.setProperty("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
+        properties.setProperty("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
+        properties.put("value.deserializer",
+                "org.apache.kafka.common.serialization.StringDeserializer");
+        properties.put("bootstrap.servers", "localhost:9092");
+        properties.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+        properties.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+        properties.put("group.id","UberTopic");
+
+        consumer = new KafkaConsumer<>(properties);
+ 
+        consumer.subscribe(Arrays.asList(uberrawdata));
+        System.out.println("consume from Kafka Topic " + uberrawdata + " publish to eventbus dashboard");
+        while (true) {
+            ConsumerRecords<String, String> records = consumer.poll(200);
+            for (ConsumerRecord<String, String> record : records) {
+                vertx.eventBus().publish("dashboard", record.value());
+                System.out.println(record.value());
+            }
+            consumer.close();
+        }
+
+    }
+}

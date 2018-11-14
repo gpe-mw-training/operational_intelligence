@@ -1,11 +1,10 @@
-
 package com.redhat.gpte;
 
 import com.redhat.gpte.producer.DataGenerator;
 
 /**
- *  * Application entry point
- *   */
+ * Application entry point
+ */
 public class Main {
 
     public static void main(String[] args) throws Exception {
@@ -30,4 +29,3 @@ public class Main {
     }
 
 }
-
