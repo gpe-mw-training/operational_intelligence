@@ -483,6 +483,14 @@ items:
         - generic:
             secret: ${APPLICATION_NAME}
           type: Generic
+          resources:
+             limits: 
+               cpu: "1"
+               memory: "1Gi"
+             requests:
+               cpu: "1"
+               memory: "1Gi"
+                
     - apiVersion: v1
       kind: DeploymentConfig
       metadata:
