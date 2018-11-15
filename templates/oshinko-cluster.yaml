@@ -590,6 +590,10 @@ items:
         labels:
           app: ${APPLICATION_NAME}
       spec:
+        resources:
+           limits:
+              cpu: "1"
+              memory: "256Mi"
         clusterIP: None
         ports:
         - name: driver-rpc-port
@@ -662,6 +666,11 @@ items:
         labels:
           app: ${APPLICATION_NAME}
       spec:
+        resources:
+           limits:
+             cpu: "1"
+             memory: "256Mi"
+
         output:
           to:
             kind: ImageStreamTag
