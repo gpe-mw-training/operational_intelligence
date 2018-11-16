@@ -457,6 +457,9 @@ items:
           to:
             kind: ImageStreamTag
             name: ${APPLICATION_NAME}:latest
+            resources:
+                cpu : "1"
+             memory : "1Gi"
         source:
           contextDir: ${CONTEXT_DIR}
           git:
