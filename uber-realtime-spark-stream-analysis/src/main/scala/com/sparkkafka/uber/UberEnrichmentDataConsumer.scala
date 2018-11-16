@@ -154,6 +154,7 @@ object UberEnrichmentDataConsumer extends Serializable {
         
         // Find the rank of Cluster using the parameters date, lat, lon and baseId and sort them.
         val rank= res.orderBy($"dt",$"lat",$"lon",$"base")
+        // Added Rank Logic 
        // val rank= clust.join(($"cid"),Seq("cid"))
         res.show
         rank.show
