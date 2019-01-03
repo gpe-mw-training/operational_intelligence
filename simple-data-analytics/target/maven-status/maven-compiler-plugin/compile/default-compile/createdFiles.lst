@@ -1,0 +1,4 @@
+com/redhat/gpte/MovieData.class
+com/redhat/gpte/Person.class
+com/redhat/gpte/SimpleCSVRead.class
+com/redhat/gpte/SparkSQLExample.class
