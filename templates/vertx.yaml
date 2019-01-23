@@ -86,7 +86,7 @@ items:
     value: initial-work
   - description: Git Directory
     name: CONTEXT_DIR
-    value: test/test-app-maven
+    value: uber-heat-map-analysis
   - description: Application options. These options will be passed to the application
       command line
     name: APP_OPTIONS
