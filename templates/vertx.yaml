@@ -21,7 +21,7 @@ items:
     source:
       type: Git
       git:
-        uri: https://github.com/vert-x3/vertx-openshift-s2i.git
+        uri: https://github.com/gpe-mw-training/operational_intelligence.git
         ref: master
     strategy:
       type: Docker
@@ -63,24 +63,24 @@ items:
 - kind: Template
   apiVersion: v1
   metadata:
-    name: vertx-helloworld-maven
+    name: uber-heatmap
     annotations:
-      description: Sample Vert.x application build with Maven
+      description: RealTime Vert.x application build with Maven
       iconClass: icon-jboss
       tags: instant-app,vert.x,maven,java
   labels:
-    application: vertx-helloworld-maven
-    createdBy: template-vertx-helloworld-maven
+    application: uber-heat-map-analysis
+    createdBy: uber-heat-map-analysis
   parameters:
   - description: The name for the application.
     name: APPLICATION_NAME
-    value: hello-world
+    value: uber-heat-map-analysis
   - description: 'Custom hostname for service.  Leave blank for default hostname,
       e.g.: <application-name>.<project>.<default-domain-suffix>'
     name: APPLICATION_HOSTNAME
   - description: Git source URI for application
     name: GIT_URI
-    value: https://github.com/vert-x3/vertx-openshift-s2i.git
+    value: https://github.com/gpe-mw-training/operational_intelligence.git
   - description: Git branch/tag reference
     name: GIT_REF
     value: initial-work
