@@ -1,0 +1,108 @@
+kind: Template
+apiVersion: v1
+template: spark
+metadata:
+  name: spark
+labels:
+  app: sparkcluster
+objects:
+
+- kind: Service
+  apiVersion: v1
+  metadata:
+    name: spark-master
+    labels:
+      name: spark-master
+  spec:
+    ports:
+      - protocol: TCP
+        port: 7077
+        targetPort: 7077
+    selector:
+      name: spark-master
+
+- kind: Service
+  apiVersion: v1
+  metadata:
+    name: spark-master-webui
+    labels:
+      name: spark-master
+  spec:
+    ports:
+      - protocol: TCP
+        port: 8080
+        targetPort: 8080
+    selector:
+      name: spark-master
+
+- kind: DeploymentConfig
+  apiVersion: v1
+  metadata:
+    name: spark-master
+  spec:
+    strategy:
+      type: Rolling
+    triggers:
+      - type: ConfigChange
+    replicas: 1
+    selector:
+      name: spark-master
+    template:
+      metadata:
+        labels:
+          name: spark-master
+      spec:
+        containers:
+          - name: spark-master
+            image: ${SPARK_IMAGE}
+            env:
+              - name: SPARK_MASTER_PORT
+                value: "7077"
+              - name: SPARK_MASTER_WEBUI_PORT
+                value: "8080"
+            ports:
+              - containerPort: 7077
+                protocol: TCP
+              - containerPort: 8080
+                protocol: TCP
+
+- kind: DeploymentConfig
+  apiVersion: v1
+  metadata:
+    name: spark-worker
+  spec:
+    strategy:
+      type: Rolling
+    triggers:
+      - type: ConfigChange
+    replicas: 3
+    selector:
+      name: spark-worker
+    template:
+      metadata:
+        labels:
+          name: spark-worker
+      spec:
+        containers:
+          - name: spark-worker
+            image: ${SPARK_IMAGE}
+            env:
+              - name: SPARK_MASTER_ADDRESS
+                value: spark://spark-master:7077
+              - name: SPARK_MASTER_UI_ADDRESS
+                value: http://spark-master-webui:8080
+
+parameters:
+- name: SPARK_IMAGE
+  description: Name of the Spark master/worker image
+  value: radanalyticsio/openshift-spark:2.3-latest
+- name: MASTER_NAME
+  description: master name used as a service name and a selector
+  generate: expression
+  from: "spark-master-[a-z0-9]{4}"
+  required: true
+- name: WORKER_NAME
+  description: worker name used as a selector
+  generate: expression
+  from: "spark-worker-[a-z0-9]{4}"
+  required: true
