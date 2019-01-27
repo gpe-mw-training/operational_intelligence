@@ -118,11 +118,11 @@
 </dependency>
 		<!-- https://mvnrepository.com/artifact/dibbhatt/kafka-spark-consumer -->
 		
-<dependency>
+		<!-- <dependency>
     <groupId>dibbhatt</groupId>
     <artifactId>kafka-spark-consumer</artifactId>
     <version>1.0.15</version>
-</dependency>
+</dependency> -->
 	<!-- https://mvnrepository.com/artifact/org.apache.spark/spark-streaming-kafka -->
 <dependency>
     <groupId>org.apache.spark</groupId>
