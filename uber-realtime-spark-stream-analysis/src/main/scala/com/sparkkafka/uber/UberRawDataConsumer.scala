@@ -1,4 +1,4 @@
-package com.sparkkafka.uber
+/*package com.sparkkafka.uber
 
 import consumer.kafka.{ProcessedOffsetManager, ReceiverLauncher}
 import org.apache.spark.storage.StorageLevel
@@ -83,4 +83,4 @@ import org.apache.spark.sql._
     Uber(p(0), p(1).toDouble, p(2).toDouble, p(3))
   }
 
-}
+}*/
