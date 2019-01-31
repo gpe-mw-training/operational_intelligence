@@ -1,4 +1,4 @@
-nd: Template
+kind: Template
 apiVersion: v1
 template: spark
 metadata:
