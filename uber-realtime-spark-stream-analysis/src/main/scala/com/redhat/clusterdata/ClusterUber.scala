@@ -28,7 +28,7 @@ object ClusterUber {
     ))
 
     // Spark 2.1
-    val df: Dataset[Uber] = spark.read.option("inferSchema", "false").schema(schema).csv("src/main/resources/data/uber.csv").as[Uber]
+    val df: Dataset[Uber] = spark.read.option("inferSchema", "false").schema(schema).csv("/data/uber.csv").as[Uber]
 
     df.cache
     df.show
